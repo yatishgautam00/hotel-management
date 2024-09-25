@@ -121,7 +121,7 @@ const Login = () => {
             Sign in with Google
           </button>
           <h1 className="mt-2">
-            Don't have an account?
+            Don&lsquo;t have an account?
             <Link href={"/register"} className="text-blue-500 underline ">
               Register{" "}
             </Link>
