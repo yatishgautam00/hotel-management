@@ -75,8 +75,14 @@ function Header() {
         </div>
 
         <div className="lg:flex flex-row lg:gap-16 hidden md:gap-12 gap-5 font-serif font-medium text-xl">
-          <Link href={"/#facilities"} className="hover:scale-105">
+          {/* <Link href={"/#facilities"} className="hover:scale-105">
             Facilities
+          </Link> */}
+          <Link
+            href={userRole === null ? "/#facilities" : "/all-bookings"}
+            className="hover:scale-105"
+          >
+            {userRole === null ? "Facilities" : "All Bookings"}
           </Link>
           <Link href={"/my-bookings"} className="hover:scale-105">
             Bookings
@@ -124,8 +130,14 @@ function Header() {
                 >
                   {userRole === null ? "Contact" : "Add Rooms"}
                 </Link>
-                <Link href={"/#facilities"} onClick={() => setSheetOpen(false)}>
+                {/* <Link href={"/#facilities"} onClick={() => setSheetOpen(false)}>
                   Facilities
+                </Link> */}
+                <Link
+                  href={userRole === null ? "/#facilities" : "/all-bookings"}
+                  onClick={() => setSheetOpen(false)}
+                >
+                  {userRole === null ? "Facilities" : "All Bookings"}
                 </Link>
                 <Link href={"/my-bookings"} onClick={() => setSheetOpen(false)}>
                   Bookings

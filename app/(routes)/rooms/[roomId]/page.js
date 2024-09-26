@@ -1,9 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname,useRouter } from "next/navigation";
 import RoomCard from "@/app/_components/RoomCard";
 import { collection, getDocs, query, where } from "firebase/firestore";
-import { firestore } from "@/app/config"; // Adjust this import based on your project structure
+import { auth, firestore } from "@/app/config"; // Adjust this import based on your project structure
 import { Calendar as CalendarIcon } from "lucide-react";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
@@ -15,9 +15,11 @@ import {
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { format } from "date-fns";
+import { onAuthStateChanged } from "firebase/auth";
 
 function Page() {
   const params = usePathname();
+  const router = useRouter(); 
   const roomType = params.split("/")[2]; // Get the room type from the URL
   const [rooms, setRooms] = useState([]);
   const [bookedRooms, setBookedRooms] = useState([]); // State for booked rooms
@@ -35,6 +37,17 @@ function Page() {
       if (selectedEnd) setDateOut(selectedEnd);
     }
   };
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        // If user is not authenticated, redirect to homepage
+        router.push("/login");
+      }
+    });
+
+    // Cleanup the subscription when the component unmounts
+    return () => unsubscribe();
+  }, [router]);
 
   useEffect(() => {
     const fetchRooms = async () => {

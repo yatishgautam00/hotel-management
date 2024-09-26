@@ -1,41 +1,21 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { auth, firestore } from "@/app/config"; // Adjust the import based on your project structure
-import { collection, query, where, getDocs } from "firebase/firestore";
-import { useCurrentUser } from "@/lib/getCurrentUser"; // Adjust import based on your project structure
+import { firestore } from "@/app/config"; // Adjust the import based on your project structure
+import { collection, getDocs } from "firebase/firestore";
 import { getRoomById } from "@/lib/getRoomById"; // Import the utility function to get room info
 import { Button } from "@/components/ui/button";
-import { onAuthStateChanged } from "firebase/auth";
-import { useRouter } from "next/navigation";
 
-const BookedRooms = () => {
-  const email = useCurrentUser(); // Fetch the current user's email
+const AllBookedRooms = () => {
   const [bookedRooms, setBookedRooms] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const router = useRouter();
-  // const params = usePathname().split("/")[2];
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (!user) {
-        // If user is not authenticated, redirect to homepage
-        router.push("/login");
-      }
-    });
 
-    // Cleanup the subscription when the component unmounts
-    return () => unsubscribe();
-  }, [router]);
   useEffect(() => {
-    const fetchBookedRooms = async () => {
+    const fetchAllBookedRooms = async () => {
       try {
-        const q = query(
-          collection(firestore, "bookedRooms"),
-          where("email", "==", email)
-        );
-        const querySnapshot = await getDocs(q);
+        const querySnapshot = await getDocs(collection(firestore, "bookedRooms"));
 
-        const bookedRoomsData = [];
+        const allBookedRoomsData = [];
         for (const doc of querySnapshot.docs) {
           const bookedRoom = doc.data();
 
@@ -52,24 +32,22 @@ const BookedRooms = () => {
             bookedRoom.startDate = bookedStart;
             bookedRoom.endDate = bookedEnd;
 
-            const roomDetails = await getRoomById(bookedRoom.roomId);
-            console.log(bookedRoom.roomId) // Fetch room details by roomId
-            bookedRoomsData.push({ ...bookedRoom, roomDetails });
-              console.log(bookedRoomsData )
+            const roomDetails = await getRoomById(bookedRoom.roomId); // Fetch room details by roomId
+            allBookedRoomsData.push({ ...bookedRoom, roomDetails });
           }
         }
 
-        setBookedRooms(bookedRoomsData);
+        setBookedRooms(allBookedRoomsData);
       } catch (error) {
-        console.error("Error fetching booked rooms: ", error);
-        setError("Failed to fetch booked rooms.");
+        console.error("Error fetching all booked rooms: ", error);
+        setError("Failed to fetch all booked rooms.");
       } finally {
         setLoading(false);
       }
     };
 
-    fetchBookedRooms();
-  }, [email]);
+    fetchAllBookedRooms();
+  }, []);
 
   if (loading) return <div className="text-center">Loading...</div>;
   if (error) return <div className="text-red-500 text-center">{error}</div>;
@@ -77,16 +55,16 @@ const BookedRooms = () => {
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-semibold text-center mb-6">
-        Your Booked Rooms
+        All Booked Rooms
       </h1>
       {bookedRooms.length === 0 ? (
-        <p className="text-center">No booked rooms found.</p>
+        <p className="text-center">No rooms have been booked yet.</p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 ">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {bookedRooms.map((bookedRoom, index) => (
             <div
               key={index}
-              className="h-full bg-[#FEF7FF] shadow-xl rounded-tr-3xl rounded-md flex p-2 flex-col" // Updated container style
+              className="h-full bg-[#FEF7FF] shadow-xl rounded-tr-3xl rounded-md flex p-2 flex-col"
             >
               <div className="relative flex-1">
                 {/* Discount badge (if applicable) */}
@@ -105,11 +83,9 @@ const BookedRooms = () => {
                 <div className="p-4 text-center bg-[#FEF7FF] rounded-md">
                   <h1 className="text-xl font-medium pb-2">
                     {bookedRoom.roomDetails?.roomName}
-                  </h1>{" "}
+                  </h1>
                   {/* Room name */}
                   <div className="flex flex-col justify-center items-start">
-                    {/* Room details */}
-                    {/* <h3 className="font-semibold text-lg">Room Details:</h3> */}
                     <p>
                       <strong>Room ID:</strong> {bookedRoom.roomId}
                     </p>
@@ -139,12 +115,9 @@ const BookedRooms = () => {
                 </div>
               </div>
 
-              {/* Buttons should be at the bottom */}
+              {/* Buttons at the bottom */}
               <div className="flex flex-row md:flex-col lg:flex-row w-full gap-4 pb-2 px-3 justify-between mt-auto">
-                <Button
-                  className="w-full bg-brand hover:bg-brand hover:scale-105"
-                  
-                >
+                <Button className="w-full bg-brand hover:bg-brand hover:scale-105">
                   View Booking Details
                 </Button>
               </div>
@@ -156,4 +129,4 @@ const BookedRooms = () => {
   );
 };
 
-export default BookedRooms;
+export default AllBookedRooms;
