@@ -63,10 +63,10 @@ function Header() {
             Rooms
           </Link>
           <Link
-            href={userRole === null ? "/#contact" : "/add-room"}
+            href={userRole ? "/add-room" : "/#contact"}
             className="hover:scale-105"
           >
-            {userRole === null ? "Contact" : "Add Rooms"}
+            {userRole ? "Add Rooms" : "Contact"}
           </Link>
         </div>
 
@@ -79,10 +79,10 @@ function Header() {
             Facilities
           </Link> */}
           <Link
-            href={userRole === null ? "/#facilities" : "/all-bookings"}
+            href={userRole ? "/all-bookings" : "/#facilities"}
             className="hover:scale-105"
           >
-            {userRole === null ? "Facilities" : "All Bookings"}
+            {userRole ? "All Bookings" : "Facilities"}
           </Link>
           <Link href={"/my-bookings"} className="hover:scale-105">
             Bookings
@@ -101,63 +101,62 @@ function Header() {
           )}
 
           {/* Sheet Trigger for small screens */}
-          
         </div>
         <Sheet>
-            <SheetTrigger asChild>
-              <Button className="lg:hidden">Menu</Button>
-            </SheetTrigger>
-            <SheetContent>
-              <SheetHeader>
-                <SheetTitle>Menu</SheetTitle>
-                {/* <SheetDescription>
+          <SheetTrigger asChild>
+            <Button className="lg:hidden">Menu</Button>
+          </SheetTrigger>
+          <SheetContent>
+            <SheetHeader>
+              <SheetTitle>Menu</SheetTitle>
+              {/* <SheetDescription>
                   Navigate through the sections of the application.
                 </SheetDescription> */}
-              </SheetHeader>
-              <div className="flex flex-col space-y-2">
-                <Link href={"/"} onClick={() => setSheetOpen(false)}>
-                  Home
-                </Link>
-                <Link
-                  href={"/rooms/all-rooms"}
-                  onClick={() => setSheetOpen(false)}
-                >
-                  Rooms
-                </Link>
-                <Link
-                  href={userRole === null ? "/#contact" : "/add-room"}
-                  onClick={() => setSheetOpen(false)}
-                >
-                  {userRole === null ? "Contact" : "Add Rooms"}
-                </Link>
-                {/* <Link href={"/#facilities"} onClick={() => setSheetOpen(false)}>
+            </SheetHeader>
+            <div className="flex flex-col space-y-2">
+              <Link href={"/"} onClick={() => setSheetOpen(false)}>
+                Home
+              </Link>
+              <Link
+                href={"/rooms/all-rooms"}
+                onClick={() => setSheetOpen(false)}
+              >
+                Rooms
+              </Link>
+              <Link
+                href={userRole ? "/add-room" : "/#contact"}
+                className="hover:scale-105"
+              >
+                {userRole ? "Add Rooms" : "Contact"}
+              </Link>
+              {/* <Link href={"/#facilities"} onClick={() => setSheetOpen(false)}>
                   Facilities
                 </Link> */}
-                <Link
-                  href={userRole === null ? "/#facilities" : "/all-bookings"}
-                  onClick={() => setSheetOpen(false)}
+              <Link
+                href={userRole ? "/all-bookings" : "/#facilities"}
+                className="hover:scale-105"
+              >
+                {userRole ? "All Bookings" : "Facilities"}
+              </Link>
+              <Link href={"/my-bookings"} onClick={() => setSheetOpen(false)}>
+                Bookings
+              </Link>
+              {isAuthenticated ? (
+                <button
+                  onClick={handleSignOut}
+                  className="text-red-500"
+                  // onClick={() => setSheetOpen(false)}
                 >
-                  {userRole === null ? "Facilities" : "All Bookings"}
+                  Sign Out
+                </button>
+              ) : (
+                <Link href={"/login"} onClick={() => setSheetOpen(false)}>
+                  Sign In
                 </Link>
-                <Link href={"/my-bookings"} onClick={() => setSheetOpen(false)}>
-                  Bookings
-                </Link>
-                {isAuthenticated ? (
-                  <button
-                    onClick={handleSignOut}
-                    className="text-red-500"
-                    // onClick={() => setSheetOpen(false)}
-                  >
-                    Sign Out
-                  </button>
-                ) : (
-                  <Link href={"/login"} onClick={() => setSheetOpen(false)}>
-                    Sign In
-                  </Link>
-                )}
-              </div>
-            </SheetContent>
-          </Sheet>
+              )}
+            </div>
+          </SheetContent>
+        </Sheet>
       </div>
     </div>
   );
