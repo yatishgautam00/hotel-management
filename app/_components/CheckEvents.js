@@ -23,7 +23,7 @@ const CheckEvents = () => {
 
   const slideDetails = [
     {
-      sliderImg: "/bg-brown-1.png",
+      sliderImg: "https://firebasestorage.googleapis.com/v0/b/hotel-rivayat.appspot.com/o/images%2Fbg-brown-1.png?alt=media&token=c4892038-97da-475a-8914-8b3959ed5645",
       title: "The Imperial Conference Hall",
       eventType: "Corporate Conference, Seminars, Business Meetings",
       hallFeatures:
@@ -34,7 +34,7 @@ const CheckEvents = () => {
       slideClr: "bg-[#BD855E]",
     },
     {
-      sliderImg: "/bg-orange-real-2.png",
+      sliderImg: "https://firebasestorage.googleapis.com/v0/b/hotel-rivayat.appspot.com/o/images%2Fbg-orange-real-2.png?alt=media&token=f6560efe-e8ac-4e7c-afa6-339e7b118962",
       title: "Grand Ballroom",
       eventType: "Weddings, Receptions, Celebrations",
       hallFeatures:
@@ -44,7 +44,7 @@ const CheckEvents = () => {
       slideClr: "bg-[#F17D15]",
     },
     {
-      sliderImg: "/bg-metallic-brown-3.png",
+      sliderImg: "https://firebasestorage.googleapis.com/v0/b/hotel-rivayat.appspot.com/o/images%2Fbg-metallic-brown-3.png?alt=media&token=45a87a9e-f247-464a-ac74-58ae97732faf",
       title: "Grand Ballroom",
       eventType: "Weddings, Receptions, Celebrations",
       hallFeatures:
@@ -54,7 +54,7 @@ const CheckEvents = () => {
       slideClr: "bg-[#BFAF9A]",
     },
     {
-      sliderImg: "bg-pink-4.png",
+      sliderImg: "https://firebasestorage.googleapis.com/v0/b/hotel-rivayat.appspot.com/o/images%2Fbg-pink-4.png?alt=media&token=7774c70e-ae14-490d-bc81-9d6bb03822f9",
       title: "Grand Ballroom",
       eventType: "Weddings, Receptions, Celebrations",
       hallFeatures:

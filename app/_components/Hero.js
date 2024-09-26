@@ -32,10 +32,10 @@ const LuxuryBooking = () => {
   const [bgIndex, setBgIndex] = useState(0);
   const [guest, setGuest] = useState("");
   const backgroundImages = [
-    "/luxury2.jpg",
-    "/luxury1.png",
-    "/luxury3.png",
-    "/luxury4.png",
+    "https://firebasestorage.googleapis.com/v0/b/hotel-rivayat.appspot.com/o/images%2Fluxury2.jpg?alt=media&token=cf810019-19ec-47a7-8527-ebe4024a7050",
+    "https://firebasestorage.googleapis.com/v0/b/hotel-rivayat.appspot.com/o/images%2Fluxury1.png?alt=media&token=4ac917b0-3e8e-4653-a9d6-3c89e00e0a8d",
+    "https://firebasestorage.googleapis.com/v0/b/hotel-rivayat.appspot.com/o/images%2Fluxury3.png?alt=media&token=8691e710-af8d-476f-93f3-4463922f3eea",
+    "https://firebasestorage.googleapis.com/v0/b/hotel-rivayat.appspot.com/o/images%2Fluxury4.png?alt=media&token=e7bc9310-f12f-49c0-a323-edb018a3fdb1",
   ];
 
   useEffect(() => {
